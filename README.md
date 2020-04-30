@@ -1,2 +1,7 @@
-# musicbot
-small bot for playing music on discord
+# Ivan The DJ
+
+-   pause
+-   play
+-   skip
+-   stop
+-   queue

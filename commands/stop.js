@@ -6,3 +6,5 @@ function stop(message, serverQueue) {
     serverQueue.songs = []
     serverQueue.connection.dispatcher.end()
 }
+
+export { stop }

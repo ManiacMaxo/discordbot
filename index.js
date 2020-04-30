@@ -1,9 +1,9 @@
+import * as cmd from "/commands"
+
 const Discord = require("discord.js")
 const { prefix, token } = require("./config.json")
-const ytdl = require("ytdl-core")
 
 const client = new Discord.Client()
-
 const queue = new Map()
 
 client.once("ready", () => {
@@ -26,18 +26,18 @@ client.on("message", async (message) => {
     const command = args.shift().toLowerCase()
 
     if (command == "play") {
-        execute(message, serverQueue)
+        cmd.execute(message, args, serverQueue)
         return
     } else if (command == "skip") {
-        skip(message, serverQueue)
+        cmd.skip(message, serverQueue)
         return
     } else if (command == "stop") {
-        stop(message, serverQueue)
+        cmd.stop(message, serverQueue)
         return
     } else if (command == "queue") {
-        queue(message, serverQueue)
+        cmd.queue(message, serverQueue)
     } else if (command == "help") {
-        help(message)
+        cmd.consolehelp(message, args)
     }
 })
 

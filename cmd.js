@@ -1,24 +1,39 @@
-const Discord = require("discord.js")
-const { youtubeKey, ownerID } = require("./config.json")
-const YouTube = require("discord-youtube-api")
-const youtube = new YouTube(youtubeKey)
-const ytdl = require("ytdl-core")
+const { youtubeKey } = require("./config.json");
+const constants = require("./constants.js");
+const YouTube = require("discord-youtube-api");
+const youtube = new YouTube(youtubeKey);
 
-async function searchYouTube(args, channel) {
-    var video = await youtube.searchVideos(args.toString())
-
-    const msg = new Discord.MessageEmbed()
-        .setColor(3447003)
-        .setTitle(`**Now Playing**`)
-        .setDescription(`[${video.title}](${video.url})`)
-        .setThumbnail(`http://img.youtube.com/vi/<${video.id}>/default.jpg`)
-        .setFooter(
-            "Bot by ManiacMaxo#2456",
-            "https://cdn.discordapp.com/avatars/196002293915582464/a76df50e4922dc496d2c966232ae5489.png?size=1024"
-        )
-
-    return channel.send(msg)
-    // return String(video.thumbnail.url)
+async function searchYouTube(args) {
+  let video;
+  if (args.toString == constants.YOUTUBE_REGEXP) {
+    video = await youtube.getVideo(args.toString());
+  } else {
+    video = await youtube.searchVideos(args.toString());
+  }
+  return video;
 }
 
-module.exports = { search: searchYouTube }
+async function clear(args, message) {
+  let numberMessages = 1;
+  let pos = 0;
+  let channel = message.channel;
+  if (args.length > 0) {
+    if (args[0][0] == "#") {
+      channel = message.guild.channels.cache.find("name", args[0]);
+      console.log(channel);
+      pos++;
+    }
+    if (!isNaN(args[pos][0])) {
+      numberMessages = parseInt(args[pos]);
+      pos++;
+    }
+  }
+  message.delete();
+  let fetched = await channel.messages.fetch({
+    limit: numberMessages,
+  });
+  channel.bulkDelete(fetched);
+  return;
+}
+
+module.exports = { search: searchYouTube, clear: clear };

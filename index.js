@@ -64,7 +64,13 @@ const d = new DiscordBot(cfg.discordToken).on(
             );
             return;
           }
-          let video = await cmd.search(args);
+          let video;
+          if (args.includes("baba") && args.includes("booey")) {
+            video = await cmd.search("nyan cat");
+          } else {
+            video = await cmd.search(args);
+          }
+
           console.log(video.url);
           let output = new Message()
             .setTitle("**Playing Song**")
@@ -97,6 +103,13 @@ const d = new DiscordBot(cfg.discordToken).on(
       // clear chat
       case "clear":
         cmd.clear(args, message);
+        break;
+      case "hello":
+        let role = message.guild.roles.cache.get("713826650177142794");
+        let member = message.member;
+        console.log(member);
+        member.roles.add(role);
+        break;
     }
   }
 );

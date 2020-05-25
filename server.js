@@ -46,6 +46,8 @@ async function play(l, connection) {
 async function main(q) {
 	if (q === undefined) {
 		throw Error('no query parameter(s)')
+	} else {
+		q = q.join(' ')
 	}
 	const yt = new TMediaYoutube(cfg.media.youtube.auth)
 

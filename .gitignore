@@ -1,4 +1,7 @@
+# Custom files
 config.json
+node_modules
+.DS_Store
 
 # Logs
 logs

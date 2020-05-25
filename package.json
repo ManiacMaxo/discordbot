@@ -1,0 +1,28 @@
+{
+  "name": "musicbot",
+  "version": "1.0.0",
+  "description": "Discord Music Bot",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "youtube",
+    "music",
+    "bot"
+  ],
+  "author": "* Gorchilov",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "googleapis": "^51.0.0",
+    "moment": "^2.26.0",
+    "ytdl-core": "^2.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ManiacMaxo/musicbot.git"
+  }
+}

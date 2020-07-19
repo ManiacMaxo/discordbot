@@ -12,7 +12,7 @@
     "license": "MIT",
     "private": true,
     "dependencies": {
-        "discord": "^0.8.2",
+        "discord.js": "^12.2.0",
         "googleapis": "^55.0.0",
         "ytdl-core": "^3.1.2"
     }

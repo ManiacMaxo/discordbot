@@ -1,15 +1,19 @@
 {
-  "name": "musicbot",
-  "version": "0.0.1",
-  "description": "discord bot for playing music",
-  "main": "index.js",
-  "repository": "https://github.com/ManiacMaxo/musicbot.git",
-  "author": "ManiacMaxo",
-  "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "discord": "^0.8.2",
-    "googleapis": "^55.0.0",
-    "ytdl-core": "^3.1.2"
-  }
+    "name": "musicbot",
+    "version": "0.0.1",
+    "description": "discord bot for playing music",
+    "main": "index.js",
+    "scripts": {
+        "start": "forever start index.js",
+        "stop": "forever stop index.js"
+    },
+    "repository": "https://github.com/ManiacMaxo/musicbot.git",
+    "author": "ManiacMaxo",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "discord": "^0.8.2",
+        "googleapis": "^55.0.0",
+        "ytdl-core": "^3.1.2"
+    }
 }

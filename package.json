@@ -1,7 +1,7 @@
 {
     "name": "musicbot",
     "version": "0.0.1",
-    "description": "discord bot for playing music",
+    "description": "discord bot",
     "main": "index.js",
     "scripts": {
         "start": "forever start index.js",
@@ -12,6 +12,7 @@
     "license": "MIT",
     "private": true,
     "dependencies": {
+        "discord-youtube-api": "^0.1.0",
         "discord.js": "^12.2.0",
         "googleapis": "^55.0.0",
         "ytdl-core": "^3.1.2"

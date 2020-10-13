@@ -9,9 +9,7 @@ module.exports = async function play(message) {
 
     if (message.member.voice.channel) {
         if (args.length == 0) {
-            message.channel.send(
-                new utils.Message().setTitle('**No song specified**')
-            )
+            message.channel.send(new utils.Message().setTitle('**No song specified**'))
             return
         }
         let video = await utils.search(args)
@@ -25,9 +23,7 @@ module.exports = async function play(message) {
         message.member.voice.channel
             .join()
             .then((connection) => {
-                console.log(
-                    `joined channel in ${message.member.voice.channel.guild}`
-                )
+                console.log(`joined channel in ${message.member.voice.channel.guild}`)
                 let yt = ytdl(video.url)
                 // .on("end", (end) => {
                 //   console.log("left channel");
@@ -40,10 +36,6 @@ module.exports = async function play(message) {
             })
             .catch((err) => console.log(err))
     } else {
-        message.channel.send(
-            new utils.Message().setTitle(
-                'You need to be in a voice channel to play'
-            )
-        )
+        message.channel.send(new utils.Message().setTitle('You need to be in a voice channel to play'))
     }
 }

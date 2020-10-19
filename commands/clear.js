@@ -1,19 +1,24 @@
 const Message = require('../utils/Message')
 
 module.exports = async function clear(message) {
-    if (message.member.hasPermission('MANAGE_MESSAGES')) {
-        let numberMessages = message.content.split(/ +/g)[1] || 1
-        const channel = message.channel
-        try {
+    const { channel } = message
+
+    if (!message.member.hasPermission('MANAGE_MESSAGES')) {
+        channel.send(new Message().setTitle('Error!').setDescription('You do not have sufficient permissions'))
+        return
+    }
+
+    let numberMessages = message.content.split(/ +/g)[1] || 1
+    try {
+        while (numberMessages > 0) {
             let fetched = await channel.messages.fetch({
-                limit: numberMessages,
+                limit: numberMessages > 100 ? 100 : numberMessages,
             })
+
             channel.bulkDelete(fetched)
-        } catch (e) {
-            console.log('hmm error: ')
-            console.log(e)
+            numberMessages -= 100
         }
-    } else {
-        message.channel.send(new Message().setTitle('Error!').setDescription('You do not have sufficient permissions'))
+    } catch (e) {
+        console.log(`hmm error: ${e}`)
     }
 }

@@ -1,21 +1,30 @@
 const Discord = require('discord.js')
-const cfg = require('./config')
+const { prefix } = require('./config')
 const commands = require('./commands')
 
 const client = new Discord.Client()
 
-client.on('message', (message) => {
-    if (message.content[0] !== cfg.prefix) return
-    if (message.author.bot) return
+const queue = new Map()
 
-    const command = message.content.slice(cfg.prefix.length).split(/ +/g)[0].toLowerCase()
-    console.log(command)
-
-    if (commands.hasOwnProperty(command)) {
-        commands[command](message)
-    }
+client.once('ready', () => {
+    console.log('Ready')
 })
 
-// client.on('')
+client.on('message', (message) => {
+    if (message.content[0] !== prefix) return
+    if (message.author.bot) return
+
+    const command = message.content.slice(prefix.length).split(' ')[0].toLowerCase()
+    console.log(command)
+
+    let args = [message, queue.get(message.guild.id)]
+
+    if (commands.hasOwnProperty(command)) {
+        if (command === 'play') {
+            args.push(queue)
+        }
+        commands[command](...args)
+    }
+})
 
 module.exports = client

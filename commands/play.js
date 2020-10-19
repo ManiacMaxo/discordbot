@@ -1,43 +1,70 @@
 const ytdl = require('ytdl-core')
 const utils = require('../utils')
 
-module.exports = async function play(message) {
+module.exports = async function play(message, queue, masterQueue) {
     const args = message.content.trim().split(' ')
+    const voiceChannel = message.member.voice.channel
 
-    if (!message.member.voice.channel) {
-        message.channel.send(new utils.Message().setTitle('**You need to be in a voice channel to play**'))
-        return
+    if (!voiceChannel) {
+        return message.channel.send(new utils.Message().setTitle('**You need to be in a voice channel to play**'))
     }
 
     if (args.length === 1) {
-        message.channel.send(new utils.Message().setTitle('**No video specified**'))
-        return
+        return message.channel.send(new utils.Message().setTitle('**No video specified**'))
     }
 
     const video = await utils.search(args.slice(1))
     if (!video) {
-        message.channel.send(new utils.Message().setTitle('**No video found**'))
-        return
+        return message.channel.send(new utils.Message().setTitle('**No video found**'))
     }
 
-    console.log(video.url)
-    const output = new utils.Message()
-        .setTitle('**Playing video**')
-        .setThumbnail(video.thumbnail)
-        .setDescription(`[${video.title}](${video.url})`)
-    message.channel.send(output)
-    message.member.voice.channel
-        .join()
-        .then((connection) => {
-            console.log(`joined channel in ${message.member.voice.channel.guild}`)
-            const yt = ytdl(video.url).on('end', (end) => {
-                console.log('left channel')
-                message.member.voice.channel.leave()
-            })
-            connection.play(yt, {
-                quality: 'highestaudio',
-                volume: 1,
-            })
+    if (!queue) {
+        const queueContruct = {
+            textChannel: message.channel,
+            voiceChannel: voiceChannel,
+            connection: null,
+            videos: [],
+            volume: 1,
+            playing: true,
+        }
+
+        masterQueue.set(message.guild.id, queueContruct)
+
+        queueContruct.videos.push(video)
+        try {
+            queueContruct.connection = await voiceChannel.join()
+            playAudio(message.guild, queueContruct)
+        } catch (e) {
+            console.log(e)
+            queue.delete(message.guild.id)
+            return message.channel.send(new utils.Message().setTitle('**There has been an error**'))
+        }
+    } else {
+        queue.videos.push(video)
+        return message.channel.send(
+            new utils.Message()
+                .setTitle('**video successfully added**')
+                .setThumbnail(video.thumbnail)
+                .setDescription(`[${video.title}](${video.url})`)
+        )
+    }
+}
+
+function playAudio(guild, queue) {
+    const video = queue.videos[0]
+    const dispatcher = queue.connection
+        .play(ytdl(video.url), { quality: 'highestaudio' })
+        .on('finish', () => {
+            queue.videos.shift()
+            playAudio(guild, queue)
         })
-        .catch((err) => console.log(err))
+        .on('error', (e) => console.log(`hmm error: ${e}`))
+
+    dispatcher.setVolumeLogarithmic(queue.volume / 5)
+    queue.textChannel.send(
+        new utils.Message()
+            .setTitle('**Playing video**')
+            .setThumbnail(video.thumbnail)
+            .setDescription(`[${video.title}](${video.url})`)
+    )
 }

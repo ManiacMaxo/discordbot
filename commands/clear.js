@@ -1,4 +1,4 @@
-const Message = require('../utils/Message')
+const { Message } = require('../utils')
 
 module.exports = async function clear(message) {
     const { channel } = message

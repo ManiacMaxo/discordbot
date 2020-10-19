@@ -6,11 +6,12 @@ const yt_regex = new RegExp(
 )
 
 module.exports = async function searchYouTube(args) {
-    let video
-    if (args.toString == yt_regex) {
-        video = await youtube.getVideo(args.toString())
-    } else {
-        video = await youtube.searchVideos(args.toString())
+    try {
+        return (video =
+            args.toString == yt_regex
+                ? await youtube.getVideo(args.toString())
+                : await youtube.searchVideos(args.toString()))
+    } catch (e) {
+        return null
     }
-    return video
 }

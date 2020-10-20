@@ -1,3 +1,3 @@
-exports.meta = require('./meta.js')
-exports.search = require('./search.js')
-exports.Message = require('./message.js')
+exports.meta = require('./meta')
+exports.search = require('./search')
+exports.Message = require('./message')

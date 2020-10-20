@@ -24,13 +24,14 @@ module.exports = async function play(message, queue, masterQueue) {
             voiceChannel: voiceChannel,
             connection: null,
             videos: [],
-            volume: 1,
+            volume: 5,
             playing: true,
         }
 
         masterQueue.set(message.guild.id, queueContruct)
 
         queueContruct.videos.push(video)
+
         try {
             queueContruct.connection = await voiceChannel.join()
             playAudio(message.guild, queueContruct)

@@ -4,7 +4,7 @@ const commands = require('./commands')
 
 const client = new Discord.Client()
 
-const queue = new Map()
+const masterQueue = new Map()
 
 client.once('ready', () => {
     console.log('Ready')
@@ -17,11 +17,11 @@ client.on('message', (message) => {
     const command = message.content.slice(prefix.length).split(' ')[0].toLowerCase()
     console.log(command)
 
-    let args = [message, queue.get(message.guild.id)]
+    const args = [message, masterQueue.get(message.guild.id)]
 
     if (commands.hasOwnProperty(command)) {
         if (command === 'play') {
-            args.push(queue)
+            args.push(masterQueue)
         }
         commands[command](...args)
     }

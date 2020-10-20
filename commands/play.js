@@ -53,7 +53,7 @@ module.exports = async function play(message, queue, masterQueue) {
 function playAudio(guild, queue) {
     const video = queue.videos[0]
     const dispatcher = queue.connection
-        .play(ytdl(video.url, { quality: 'highestaudio' }), { type: 'opus' })
+        .play(ytdl(video.url, { quality: 'highestaudio' }))
         .on('finish', () => {
             queue.videos.shift()
             playAudio(guild, queue)

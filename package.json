@@ -4,9 +4,7 @@
     "description": "discord bot",
     "main": "index.js",
     "scripts": {
-        "start": "forever start index.js",
-        "stop": "forever stop index.js",
-        "test": "nodemon index.js"
+        "start:dev": "nodemon index.js"
     },
     "repository": "https://github.com/ManiacMaxo/musicbot.git",
     "author": "ManiacMaxo",
@@ -14,11 +12,9 @@
     "private": true,
     "dependencies": {
         "@discordjs/opus": "^0.3.2",
-        "discord-youtube-api": "^0.1.0",
         "discord.js": "^12.2.0",
-        "ffmpeg-static": "^4.2.7",
-        "googleapis": "^55.0.0",
-        "opusscript": "^0.0.7",
-        "ytdl-core": "^3.1.2"
+        "googleapis": "^51.0.0",
+        "moment": "^2.26.0",
+        "ytdl-core": "^2.1.4"
     }
 }

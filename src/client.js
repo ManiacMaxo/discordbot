@@ -14,7 +14,10 @@ client.on('message', (message) => {
     if (message.content[0] !== prefix) return
     if (message.author.bot) return
 
-    const command = message.content.slice(prefix.length).split(' ')[0].toLowerCase()
+    const command = message.content
+        .slice(prefix.length)
+        .split(' ')[0]
+        .toLowerCase()
     console.log(command)
 
     const args = [message, masterQueue.get(message.guild.id)]

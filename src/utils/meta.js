@@ -1,4 +1,4 @@
-module.exports = async function printMeta(m) {
+module.exports = printMeta = async (m) => {
     console.log(`Title: ${m.title}`)
     console.log(`Description: ${m.description}`)
     console.log(`Published: ${m.pubDate}`)

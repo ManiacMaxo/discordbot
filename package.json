@@ -2,19 +2,22 @@
     "name": "musicbot",
     "version": "0.0.1",
     "description": "discord bot",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
-        "start:dev": "nodemon index.js"
+        "start:dev": "nodemon src/index.js"
     },
-    "repository": "https://github.com/ManiacMaxo/musicbot.git",
-    "author": "ManiacMaxo",
+    "repository": "https://github.com/Bagun-Esports/discordbot.git",
+    "authors": [
+        "Victor Gorchilov <victor@gorchilov.com>",
+        "Nikolai Gorchilov"
+    ],
     "license": "MIT",
     "private": true,
     "dependencies": {
-        "@discordjs/opus": "^0.3.2",
-        "discord.js": "^12.2.0",
-        "googleapis": "^51.0.0",
+        "@discordjs/opus": "^0.4.0",
+        "discord.js": "^12.5.1",
+        "googleapis": "^67.1.0",
         "moment": "^2.26.0",
-        "ytdl-core": "^2.1.4"
+        "ytdl-core": "^4.4.5"
     }
 }

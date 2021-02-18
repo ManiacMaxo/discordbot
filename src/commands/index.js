@@ -4,5 +4,5 @@ module.exports = {
     skip: require('./skip'),
     stop: require('./stop'),
     volume: require('./volume'),
-    queue: require('./queue'),
+    queue: require('./queue')
 }

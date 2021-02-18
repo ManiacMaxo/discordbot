@@ -4,7 +4,11 @@ module.exports = async function clear(message) {
     const { channel } = message
 
     if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-        channel.send(new Message().setTitle('Error!').setDescription('You do not have sufficient permissions'))
+        channel.send(
+            new Message()
+                .setTitle('Error!')
+                .setDescription('You do not have sufficient permissions')
+        )
         return
     }
 
@@ -12,7 +16,7 @@ module.exports = async function clear(message) {
     try {
         while (numberMessages > 0) {
             let fetched = await channel.messages.fetch({
-                limit: numberMessages > 100 ? 100 : numberMessages,
+                limit: numberMessages > 100 ? 100 : numberMessages
             })
 
             channel.bulkDelete(fetched)

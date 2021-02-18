@@ -5,7 +5,7 @@ const yt_regex = new RegExp(
     '/^(?:https?://)?(?:www.)?(?:youtube.com/S*(?:(?:/e(?:mbed)?)?/|watch/??(?:S*?&?v=))|youtu.be/)([w-]{11})(?:[^w-]|$)/'
 )
 
-module.exports = async function searchYouTube(args) {
+module.exports = searchYouTube = async (args) => {
     try {
         return (video =
             args.toString == yt_regex

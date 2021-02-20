@@ -1,9 +1,10 @@
 import { MessageEmbed } from 'discord.js'
 
 export class Message extends MessageEmbed {
-    constructor(iconURL?: string) {
+    constructor(title: string, iconURL?: string) {
         super({
-            color: 3447003,
+            title,
+            color: '#ffcc3b',
             footer: {
                 text: 'Bot by ManiacMaxo#1111',
                 iconURL:

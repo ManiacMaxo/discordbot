@@ -1,9 +1,12 @@
 import YouTube from 'discord-youtube-api'
 import { CommandoClient, CommandoClientOptions } from 'discord.js-commando'
 import path from 'path'
-import { ClientOptions } from 'src/utils'
+import { ClientOptions } from './utils'
 
 export class Client extends CommandoClient {
+    public youtube: YouTube
+    public ownerPicture?: string
+
     constructor(options: ClientOptions) {
         super(options as CommandoClientOptions)
         this.youtube = new YouTube(options.youtubeKey)
@@ -13,8 +16,9 @@ export class Client extends CommandoClient {
         this.registry
             .registerDefaultTypes()
             .registerGroups([
-                ['first', 'Your First Command Group'],
-                ['second', 'Your Second Command Group']
+                ['test', 'Test'],
+                ['music', 'Music'],
+                ['mod', 'Moderation']
             ])
             .registerDefaultGroups()
             .registerDefaultCommands({
@@ -24,9 +28,4 @@ export class Client extends CommandoClient {
 
         this.on('error', console.error)
     }
-
-    private youtube: YouTube
-    private ownerPicture?: string
-
-    public say() {}
 }

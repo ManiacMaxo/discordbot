@@ -1,2 +1,3 @@
-export { ClientOptions } from 'src/utils/ClientOptions'
-export { Message } from 'src/utils/Message'
+export { ClientOptions } from './ClientOptions'
+export { Message } from './Message'
+export { Command } from './Command'

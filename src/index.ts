@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { Client } from 'src/client'
+import { Client } from './client'
 
 const client = new Client({
     commandPrefix: process.env.prefix,

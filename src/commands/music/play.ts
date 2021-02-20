@@ -1,6 +1,7 @@
-import { Command, CommandoMessage } from 'discord.js-commando'
-import { Client } from 'src/client'
-import { Message } from 'src/utils'
+import { Video } from 'discord-youtube-api'
+import { CommandoMessage } from 'discord.js-commando'
+import { Client } from '../../client'
+import { Message, Command } from '../../utils'
 
 export class Play extends Command {
     constructor(client: Client) {
@@ -9,45 +10,48 @@ export class Play extends Command {
             group: 'music',
             memberName: 'play',
             description: 'Play audio from YouTube.',
-            guildOnly: true
+            guildOnly: true,
+            args: [
+                {
+                    key: 'video',
+                    prompt: 'What video should be played',
+                    type: 'string'
+                }
+            ]
         })
     }
 
-    async run(message: CommandoMessage) {
-        const args = message.content.trim().split(' ')
+    async run(message: CommandoMessage, args: any) {
+        // const args = message.content.trim().split(' ')
         const voiceChannel = message.member
             ? message.member.voice.channel
             : null
 
         if (!voiceChannel) {
             return message.channel.send(
-                new Message().setTitle(
-                    '**You need to be in a voice channel to play**'
-                )
+                new Message('**You need to be in a voice channel to play**')
             )
         }
 
         if (message.content.length === 1) {
-            return message.channel.send(
-                new Message().setTitle('**No video specified**')
-            )
+            return message.channel.send(new Message('**No video specified**'))
         }
 
-        const video = this.search(args.slice(1))
+        const video = await this.search(args.video)
         if (!video) {
-            return message.channel.send(
-                new Message().setTitle('**No video found**')
-            )
+            return message.channel.send(new Message('**No video found**'))
         }
+
+        return message.channel.send(new Message('everything is fine'))
     }
 
-    async search(args: any) {
-        const yt_regex = new RegExp(
+    async search(query: string): Promise<Video> {
+        const ytRegex = new RegExp(
             '/^(?:https?://)?(?:www.)?(?:youtube.com/S*(?:(?:/e(?:mbed)?)?/|watch/??(?:S*?&?v=))|youtu.be/)([w-]{11})(?:[^w-]|$)/'
         )
 
-        return args.toString == yt_regex
-            ? await this.client.youtube.getVideo(args.toString())
-            : await this.client.youtube.searchVideos(args.toString())
+        return ytRegex.test(query)
+            ? await this.client.youtube.getVideo(query)
+            : await this.client.youtube.searchVideos(query)
     }
 }

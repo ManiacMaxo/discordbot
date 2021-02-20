@@ -1,7 +1,9 @@
-import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando'
+import { CommandoMessage } from 'discord.js-commando'
+import { Client } from '../../client'
+import { Command, Message } from '../../utils'
 
 export class Meow extends Command {
-    constructor(client: CommandoClient) {
+    constructor(client: Client) {
         super(client, {
             name: 'meow',
             group: 'first',
@@ -11,6 +13,6 @@ export class Meow extends Command {
     }
 
     run(message: CommandoMessage) {
-        return message.channel.send('Meow!')
+        return message.channel.send(new Message('Meow!'))
     }
 }

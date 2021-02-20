@@ -6,16 +6,24 @@ module.exports = async function play(message, queue, masterQueue) {
     const voiceChannel = message.member.voice.channel
 
     if (!voiceChannel) {
-        return message.channel.send(new utils.Message().setTitle('**You need to be in a voice channel to play**'))
+        return message.channel.send(
+            new utils.Message().setTitle(
+                '**You need to be in a voice channel to play**'
+            )
+        )
     }
 
     if (args.length === 1) {
-        return message.channel.send(new utils.Message().setTitle('**No video specified**'))
+        return message.channel.send(
+            new utils.Message().setTitle('**No video specified**')
+        )
     }
 
     const video = await utils.search(args.slice(1))
     if (!video) {
-        return message.channel.send(new utils.Message().setTitle('**No video found**'))
+        return message.channel.send(
+            new utils.Message().setTitle('**No video found**')
+        )
     }
 
     if (!queue) {
@@ -25,7 +33,7 @@ module.exports = async function play(message, queue, masterQueue) {
             connection: null,
             videos: [],
             volume: 1,
-            playing: true,
+            playing: true
         }
 
         masterQueue.set(message.guild.id, queueContruct)
@@ -37,7 +45,9 @@ module.exports = async function play(message, queue, masterQueue) {
         } catch (e) {
             console.log(e)
             queue.delete(message.guild.id)
-            return message.channel.send(new utils.Message().setTitle('**There has been an error**'))
+            return message.channel.send(
+                new utils.Message().setTitle('**There has been an error**')
+            )
         }
     } else {
         queue.videos.push(video)

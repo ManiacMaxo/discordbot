@@ -7,10 +7,9 @@ const yt_regex = new RegExp(
 
 module.exports = async function searchYouTube(args) {
     try {
-        return (video =
-            args.toString == yt_regex
-                ? await youtube.getVideo(args.toString())
-                : await youtube.searchVideos(args.toString()))
+        return args.toString == yt_regex
+            ? await youtube.getVideo(args.toString())
+            : await youtube.searchVideos(args.toString())
     } catch (e) {
         return null
     }

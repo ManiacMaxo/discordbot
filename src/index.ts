@@ -1,18 +1,17 @@
 require('dotenv').config()
-import { Client } from './client'
+import { Intents } from 'discord.js'
+import { Client } from './Client'
 
 const client = new Client({
-    commandPrefix: process.env.prefix,
-    owner: process.env.owner,
-    youtubeKey: process.env.youtubeKey || '',
-    ownerPicture: process.env.ownerPicture
+    youtubeKey: process.env.YOUTUBE_KEY ?? '',
+    intents: [Intents.FLAGS.GUILDS],
+    discordKey: process.env.DISCORD_TOKEN ?? ''
 })
 
-client.login(process.env.discordToken)
+client.login()
 
 client.once('ready', () => {
-    if (client.user) {
-        console.log(`Logged in as ${client.user.tag}! (${client.user.id})`)
-        client.user.setActivity('Hey there!')
-    }
+    if (!client.user) return
+    console.log(`Logged in as ${client.user.tag}! (${client.user.id})`)
+    client.user.setActivity('Hey there!')
 })

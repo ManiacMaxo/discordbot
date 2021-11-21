@@ -1,3 +1,3 @@
-export { ClientOptions } from './ClientOptions'
 export { Message } from './Message'
-export { Command } from './Command'
+export { default as regex } from './regex'
+export * from './constants'

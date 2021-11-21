@@ -1,0 +1,3 @@
+export default {
+    yt: /^(?:https?:\/\/)?(?:www.)?(?:youtube.com\/S*(?:(?:\/e(?:mbed)?)?\/|watch\/??(?:S*?&?v=))|youtu.be\/)([w-]{11})(?:[^w-]|$)/
+}
